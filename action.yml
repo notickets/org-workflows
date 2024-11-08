@@ -41,3 +41,4 @@ runs:
 
     - name: Logout from GitHub Container Registry
       run: docker logout ghcr.io
+      shell: bash  # Указываем оболочку
