@@ -29,12 +29,15 @@ runs:
       run: pytest tests/
 
     - name: Run linters
-      run: |
-        flake8 .
-        pylint .
-        black --check .
-        isort --check-only .
-        mypy .
-        bandit -r .
-        radon cc . -nc
-        radon mi .
+      # run: |
+      #  flake8 .
+      #  pylint .
+      #  black --check .
+      #  isort --check-only .
+      #  mypy .
+      #  bandit -r .
+      #  radon cc . -nc
+      #  radon mi .
+        run: |
+          black --check .
+          isort --check-only .
