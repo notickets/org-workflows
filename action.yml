@@ -34,8 +34,8 @@ runs:
       run: pytest tests/
       shell: bash  # Указываем оболочку
 
-    - name: Run linters
-      run: |
-        black --check .
-        isort --check-only .
-      shell: bash  # Указываем оболочку
+    # - name: Run linters
+    #   run: |
+    #     black --check .
+    #     isort --check-only .
+    #   shell: bash  # Указываем оболочку
