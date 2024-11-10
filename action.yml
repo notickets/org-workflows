@@ -1,5 +1,6 @@
 name: "Docker Build and Push Action"
 description: "Build and push Docker image to GitHub Container Registry with caching"
+
 inputs:
   tag:
     description: "Tag for Docker image (e.g., 'latest' or 'stable')"
@@ -9,6 +10,9 @@ inputs:
     description: "Cache tag for Docker image"
     required: false
     default: "cache"
+  token:
+    description: "GitHub Token for authentication"
+    required: true
 
 runs:
   using: "composite"
@@ -24,7 +28,7 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ inputs.token }}
 
     - name: Build and Push Docker image with Cache
       uses: docker/build-push-action@v5
@@ -35,10 +39,9 @@ runs:
           ghcr.io/${{ github.repository }}:${{ inputs.tag }}
           ghcr.io/${{ github.repository }}:${{ github.sha }}
           ghcr.io/${{ github.repository }}:latest
-          ${{ github.ref_name == 'main' && 'ghcr.io/' + github.repository + ':stable' || '' }}
         cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ inputs.cache-tag }}
         cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:${{ inputs.cache-tag }},mode=max
 
     - name: Logout from GitHub Container Registry
       run: docker logout ghcr.io
-      shell: bash  # Указываем оболочку
+      shell: bash
