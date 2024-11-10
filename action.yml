@@ -36,9 +36,9 @@ runs:
         context: .
         push: true
         tags: |
-          ghcr.io/${{ github.repository }}:${{ inputs.tag }}
-          ghcr.io/${{ github.repository }}:${{ github.sha }}
-          ghcr.io/${{ github.repository }}:latest
+          ghcr.io/${{ github.repository | toLower }}:${{ inputs.tag }}
+          ghcr.io/${{ github.repository | toLower }}:${{ github.sha }}
+          ghcr.io/${{ github.repository | toLower }}:latest
         cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ inputs.cache-tag }}
         cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:${{ inputs.cache-tag }},mode=max
 
